@@ -12,7 +12,7 @@ helm install amaze-surf myrepo/apache
 ---
 ### Uninstall the apache chart release  from the cluster 
 ```bash
-helm install amaze-surf
+helm uninstall amaze-surf
 ```
 - screenshot from terminal ![Screenshot_20230212_105843](https://user-images.githubusercontent.com/116673091/218308244-38c7a12e-8b9b-4e83-b555-b0c7ad15ec00.png)
 
