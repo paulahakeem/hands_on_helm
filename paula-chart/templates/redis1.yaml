@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paula-chart.fullname" . }}
+  labels:
+    {{- include "paula-chart.labels" . | nindent 4 }}
+  namespace: finance
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "paula-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+     {{- with .Values.podAnnotations }}
+      labels:
+        {{- include "paula-chart.selectorLabels" . | nindent 8 }}      
+    spec:
+      {{- with .Values.imagePullSecrets }}    
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
